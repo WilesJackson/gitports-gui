@@ -29,21 +29,23 @@ portsConfig = {}
 def main():
   path = os.getenv('LOCALAPPDATA')
   array = os.listdir(path)
-  print(portsConfig)
+  setup_run = portsConfig['setupRun']
   parser = GooeyParser(description="Generate Reports from Github Repositories using GitPorts")
   subparsers = parser.add_subparsers(help="GitPorts Reports")
 
-## Issues
-  issuePorts = subparsers.add_parser('issue', help='GitPorts Report Generation for GitHub Issues')
-  issuePorts.add_argument('repo', metavar='Repository', help='Github Repo to generate report from', type=str)
-  issuePorts.add_argument('-t', metavar='User Token', help='GitHub User Token for Repo', required=True, type=str)
-  issuePorts.add_argument('-p', metavar='Page Count', help='Number of pages to generate report from (100/page)', default=1, type=int)
-  issuePorts.add_argument('-l', metavar='Issue Labels', help='Filter based on Issue Labels (comma-seperated list)', type=str)
+  if not setup_run:
+    ## Setup
+    setupPorts = subparsers.add_parser('setup', help='Setup utils for GitPorts')
+    setupPorts.add_argument('-t', metavar='Save User Token', help='Output token to config file for quicker report generation', type=str, required=True)
+    setupPorts.add_argument('-o', metavar='Default Repository Owner', help='Default Repository Owner')
+  else:
+    ## Issues
+    issuePorts = subparsers.add_parser('issue', help='GitPorts Report Generation for GitHub Issues')
+    issuePorts.add_argument('repo', metavar='Repository', help='Github Repo to generate report from', type=str)
+    issuePorts.add_argument('-t', metavar='User Token', help='GitHub User Token for Repo (Set Default In Config)', required=True, type=str, default=portsConfig['gitToken'])
+    issuePorts.add_argument('-p', metavar='Page Count', help='Number of pages to generate report from (100/page)', default=1, type=int)
+    issuePorts.add_argument('-l', metavar='Issue Labels', help='Filter based on Issue Labels (comma-seperated list)', type=str)
 
-## Setup
-  setupPorts = subparsers.add_parser('setup', help='Setup utils for GitPorts')
-  setupPorts.add_argument('-t', metavar='Save User Token', help='Output token to config file for quicker report generation', type=str, required=True)
-  setupPorts.add_argument('-o', metavar='Default Repository Owner', help='Default Repository Owner')
 
   parser.parse_args()
 

@@ -5,7 +5,7 @@
 #define MyAppVersion "0.0.1-ALPHA"
 #define MyAppPublisher "Wiles Jackson, Inc."
 #define MyAppURL "http://www.wilesjackson.com"
-#define MyAppExeName "GitPorts.exe"
+#define MyAppExeName "GitPorts-gui.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -32,7 +32,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\JoeyHops\workspace\gp-gui\dist\GitPorts.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\JoeyHops\workspace\gp-gui\dist\GitPorts-gui.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\win\gitports-v0.1.1-x64.exe"; DestDir: "{app}"; AfterInstall: RunOtherInstaller
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
